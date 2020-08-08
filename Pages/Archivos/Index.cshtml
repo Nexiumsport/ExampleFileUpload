@@ -1,0 +1,85 @@
+@page
+@model PImag.Pages.Archivos.IndexModel
+
+@{
+    ViewData["Title"] = "Archivos";
+}
+<!-- Main content -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-4">
+          <h4>Listado Archivos</h4>
+        </div>
+        <div class="col-sm-4">
+          <a class="btn btn-success btn-sm" asp-page="SubirArchivoDB">Nuevo</a>
+        </div>
+        <div class="col-sm-4">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a asp-page="/Index">Inicio</a></li>
+            <li class="breadcrumb-item active">Listado</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">        
+      <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>
+              @Html.DisplayNameFor(model => model.Archivo[0].ID)
+            </th>
+            <th>
+              @Html.DisplayNameFor(model => model.Archivo[0].image_file)
+            </th>
+
+            <th>
+              @Html.DisplayNameFor(model => model.Archivo[0].nombre_imagen)
+            </th>
+            <th>
+              @Html.DisplayNameFor(model => model.Archivo[0].tamaño)
+            </th>
+        
+            <th>
+              @Html.DisplayNameFor(model => model.Archivo[0].UploadDT)
+            </th>
+            
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var item in Model.Archivo) {
+          <tr>
+            <td>
+              @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+              <img src="@String.Format(" data:image/jpg;base64,{0}", Convert.ToBase64String(item.image_file))"
+                class="img-profile rounded-circle" alt="User Image" width="40" height="40" />
+            </td>
+            <td>
+              @Html.DisplayFor(modelItem => item.nombre_imagen)
+            </td>
+            <td>
+              @Html.DisplayFor(modelItem => item.tamaño)
+            </td>
+            <td>
+              @Html.DisplayFor(modelItem => item.UploadDT)
+            </td>
+            
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Editar</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Detalles</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Eliminar</a>
+            </td>
+          </tr>
+
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
